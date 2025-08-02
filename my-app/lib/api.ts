@@ -2,9 +2,15 @@ import axios from "axios";
 import { Note, NewNote } from "../types/note";
 
 const API_TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+console.log("🔑 TOKEN:", API_TOKEN);
 
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
-axios.defaults.headers.common.Authorization = `Bearer ${API_TOKEN}`;
+
+if (!API_TOKEN) {
+  console.warn("⚠️ Warning: Missing API token. Requests will fail.");
+} else {
+  axios.defaults.headers.common.Authorization = `Bearer ${API_TOKEN}`;
+}
 
 interface FetchNotesParams {
   page?: number;
@@ -26,7 +32,7 @@ export const fetchNotes = async (
     params: {
       page,
       perPage,
-      ...(search ? { search } : {}),
+      search,
     },
   });
 
@@ -38,14 +44,12 @@ export const createNote = async (noteData: NewNote): Promise<Note> => {
   return data;
 };
 
-export const deleteNote = async (id: number): Promise<Note> => {
+export const deleteNote = async (id: string): Promise<Note> => {
   const { data } = await axios.delete<Note>(`/notes/${id}`);
   return data;
 };
 
-export const fetchNoteById = async (id: number): Promise<Note> => {
-  const { data } = await axios.get<Note>(
-    `https://notehub-public.goit.study/api/notes/${id}`
-  );
+export const fetchNoteById = async (id: string): Promise<Note> => {
+  const { data } = await axios.get<Note>(`/notes/${id}`);
   return data;
 };

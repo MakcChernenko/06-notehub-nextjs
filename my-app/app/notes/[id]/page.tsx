@@ -9,7 +9,11 @@ interface Props {
 
 export default async function NoteDetailsPage({ params }: Props) {
   const queryClient = getQueryClient();
-  const noteId = Number(params.id);
+  const noteId = params.id;
+
+  if (typeof noteId !== "string") {
+    throw new Error("Invalid note ID");
+  }
 
   await queryClient.prefetchQuery({
     queryKey: ["note", noteId],

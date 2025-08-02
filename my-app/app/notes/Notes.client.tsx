@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createPortal } from "react-dom";
+import { useDebounce } from "use-debounce";
 
 import { fetchNotes } from "@/lib/api";
 import { FetchNotesResponse } from "@/lib/api";
 
-import SearchBox from "../../components/SearchBox/SearchBar";
+import SearchBox from "@/components/SearchBox/SearchBar";
 import NoteList from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 
 import css from "./NotesPage.module.css";
-import { useDebounce } from "use-debounce";
 
 const Notes = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,16 +29,25 @@ const Notes = () => {
     setPage(1);
   };
 
-  const { data, isLoading, isError } = useQuery<FetchNotesResponse>({
+  const { data, isLoading, isError, error } = useQuery<FetchNotesResponse>({
     queryKey: ["notes", page, debouncedSearchTerm],
     queryFn: () =>
-      fetchNotes({ page, perPage: 12, search: debouncedSearchTerm }),
+      fetchNotes({
+        page,
+        perPage: 12,
+        search: debouncedSearchTerm.trim(),
+      }),
     placeholderData: () =>
       queryClient.getQueryData(["notes", page - 1, debouncedSearchTerm]),
   });
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+
+  console.log("📄 Current page:", page);
+  console.log("🔍 Search term:", debouncedSearchTerm);
+  if (isError) console.error("❌ Error loading notes:", error);
+  if (data) console.log("✅ Notes loaded:", data.notes);
 
   return (
     <div className={css.app}>
@@ -56,11 +65,14 @@ const Notes = () => {
         </button>
       </header>
 
-      {!isLoading && data?.notes?.length ? (
-        <NoteList notes={data.notes} />
-      ) : null}
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error loading notes</p>}
+
+      {!isLoading && data?.notes?.length ? (
+        <NoteList notes={data.notes} />
+      ) : !isLoading && !isError ? (
+        <p>No notes found.</p>
+      ) : null}
 
       {isModalOpen &&
         createPortal(
