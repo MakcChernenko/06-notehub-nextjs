@@ -5,12 +5,7 @@ const API_TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 console.log("🔑 TOKEN:", API_TOKEN);
 
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
-
-if (!API_TOKEN) {
-  console.warn("⚠️ Warning: Missing API token. Requests will fail.");
-} else {
-  axios.defaults.headers.common.Authorization = `Bearer ${API_TOKEN}`;
-}
+axios.defaults.headers["Authorization"] = `Bearer ${API_TOKEN}`;
 
 interface FetchNotesParams {
   page?: number;
