@@ -3,8 +3,14 @@ import getQueryClient from "@/lib/getQueryClient";
 import { fetchNoteById } from "@/lib/api";
 import NoteDetailsClient from "./NoteDetails.client";
 
+// interface Props {
+//   params: { id: string };
+// }
+
 interface Props {
-  params: { id: string };
+  params: {
+    id: string;
+  };
 }
 
 export default async function NoteDetailsPage({ params }: Props) {
