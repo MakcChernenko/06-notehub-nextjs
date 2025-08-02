@@ -3,12 +3,11 @@ import getQueryClient from "@/lib/getQueryClient";
 import { fetchNoteById } from "@/lib/api";
 import NoteDetailsClient from "./NoteDetails.client";
 
-// ❗ Уникаємо зовнішніх типів — прямо в аргументах
-export default async function NoteDetailsPage({
-  params,
-}: {
+type PageParams = {
   params: { id: string };
-}) {
+};
+
+export default async function NoteDetailsPage({ params }: PageParams) {
   const queryClient = getQueryClient();
   const noteId = params.id;
 
