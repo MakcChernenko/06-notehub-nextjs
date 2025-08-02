@@ -3,7 +3,13 @@ import { fetchNoteById } from "@/lib/api";
 import { Note } from "@/types/note";
 import NoteDetailsClient from "@/components/NoteDetailsClient/NoteDetailsClient";
 
-async function NotePage({ params }: { params: { id: string } }) {
+interface NotePageProps {
+  params: {
+    id: string;
+  };
+}
+
+async function NotePage({ params }: NotePageProps) {
   const { id } = await params;
   console.log(await fetchNoteById(id));
   const note = await fetchNoteById(id);
