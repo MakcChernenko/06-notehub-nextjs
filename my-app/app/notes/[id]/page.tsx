@@ -3,21 +3,16 @@ import getQueryClient from "@/lib/getQueryClient";
 import { fetchNoteById } from "@/lib/api";
 import NoteDetailsClient from "./NoteDetails.client";
 
-// interface Props {
-//   params: { id: string };
-// }
-
-interface Props {
-  params: {
-    id: string;
-  };
-}
-
-export default async function NoteDetailsPage({ params }: Props) {
+// ❗ Уникаємо зовнішніх типів — прямо в аргументах
+export default async function NoteDetailsPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const queryClient = getQueryClient();
   const noteId = params.id;
 
-  if (typeof noteId !== "string") {
+  if (!noteId || typeof noteId !== "string") {
     throw new Error("Invalid note ID");
   }
 
