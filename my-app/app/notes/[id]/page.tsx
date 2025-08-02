@@ -10,7 +10,7 @@ interface NotePageProps {
 }
 
 async function NotePage({ params }: NotePageProps) {
-  const { id } = await params;
+  const { id } = params;
   console.log(await fetchNoteById(id));
   const note = await fetchNoteById(id);
   return (
