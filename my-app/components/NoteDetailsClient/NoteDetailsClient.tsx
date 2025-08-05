@@ -1,4 +1,3 @@
-import { log } from "console";
 import css from "./NoteDetailsClient.module.css";
 import { Note } from "@/types/note";
 
