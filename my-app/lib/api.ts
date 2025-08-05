@@ -21,6 +21,7 @@ export interface FetchNotesResponse {
 export const fetchNotes = async (
   params: FetchNotesParams
 ): Promise<FetchNotesResponse> => {
+  console.log("TOKEN:", API_TOKEN);
   const { page, perPage, search } = params;
 
   const { data } = await axios.get<FetchNotesResponse>("/notes", {
