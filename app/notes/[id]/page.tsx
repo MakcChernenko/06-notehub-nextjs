@@ -1,5 +1,5 @@
 import { fetchNoteById } from "@/lib/api";
-import NoteDetailsClient from "@/components/NoteDetailsClient/NoteDetailsClient";
+import NoteDetailsClient from "@/components/NoteDetailsClient/NoteDetails.Client";
 
 export default async function NotePage({
   params,
