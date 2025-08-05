@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NoteHub",
+  title: "NoteHub, черненко",
   description: "Note-taking app with SSR/CSR built using Next.js",
 };
 
