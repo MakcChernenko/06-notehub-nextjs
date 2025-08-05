@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   description: "Note-taking app with SSR/CSR built using Next.js",
 };
 
+console.log("все ок");
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
