@@ -15,9 +15,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "NoteHub, черненко",
-  description: "Note-taking app with SSR/CSR built using Next.js",
+export const metadata = {
+  title: "NoteHub, Черненко — Зручний додаток для нотаток",
+  description:
+    "NoteHub — це Next.js додаток для швидкого та зручного створення нотаток.",
 };
 
 console.log("все ок");
