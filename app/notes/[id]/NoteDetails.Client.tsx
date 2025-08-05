@@ -4,6 +4,7 @@ import { Note } from "../../../types/note";
 interface nodeDetailsClientProps {
   note: Note;
 }
+console.log("всу ок");
 
 function NoteDetailsClient({ note }: nodeDetailsClientProps) {
   const formatedDate = new Date(note.createdAt).toLocaleDateString();
