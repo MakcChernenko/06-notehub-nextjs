@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 console.log("все ок");
+console.log("і ще раз все ок");
 
 export default function RootLayout({
   children,
