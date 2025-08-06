@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+// import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
@@ -20,9 +20,6 @@ export const metadata = {
   description:
     "NoteHub — це Next.js додаток для швидкого та зручного створення нотаток.",
 };
-
-console.log("все ок");
-console.log("і ще раз все ок");
 
 export default function RootLayout({
   children,
