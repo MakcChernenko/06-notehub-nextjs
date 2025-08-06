@@ -7,16 +7,19 @@ import {
 import Notes from "./Notes.client";
 
 const NotesPage = async () => {
+  const page = 1;
+  const search = "";
+
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ["notes", 1, ""],
-    queryFn: () => fetchNotes({ page: 1, perPage: 12 }),
+  const data = await queryClient.fetchQuery({
+    queryKey: ["notes", page, search],
+    queryFn: () => fetchNotes({ page, perPage: 12, search }),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Notes />
+      <Notes initialPage={page} initialSearch={search} initialData={data} />
     </HydrationBoundary>
   );
 };

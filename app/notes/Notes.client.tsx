@@ -16,13 +16,15 @@ import NoteForm from "@/components/NoteForm/NoteForm";
 import css from "./NotesPage.module.css";
 
 interface NotesProps {
-  initialData?: FetchNotesResponse;
+  initialPage: number;
+  initialSearch: string;
+  initialData: FetchNotesResponse;
 }
 
-const Notes = ({ initialData }: NotesProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const Notes = ({ initialData, initialPage, initialSearch }: NotesProps) => {
+  const [searchTerm, setSearchTerm] = useState(initialSearch);
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(initialPage);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const queryClient = useQueryClient();
@@ -41,7 +43,9 @@ const Notes = ({ initialData }: NotesProps) => {
         search: debouncedSearchTerm.trim(),
       }),
     initialData:
-      page === 1 && debouncedSearchTerm.trim() === "" ? initialData : undefined,
+      page === initialPage && debouncedSearchTerm === initialSearch
+        ? initialData
+        : undefined,
     placeholderData: () =>
       queryClient.getQueryData(["notes", page - 1, debouncedSearchTerm]),
   });
